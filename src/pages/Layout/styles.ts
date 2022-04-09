@@ -1,7 +1,8 @@
 import { makeStyles } from '@mui/styles';
 export const useStyles = makeStyles({
   wrapper: {
-    width: 1080,
+    maxWidth: 1080,
+    width: '100%',
     marginTop: 50,
     marginBottom: 50,
     background: '#fff',
