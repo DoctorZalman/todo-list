@@ -1,7 +1,7 @@
 import axios, { AxiosInstance, AxiosRequestConfig } from 'axios';
 
 const instance: AxiosInstance = axios.create({
-  baseURL: '',
+  baseURL: 'https://jsonplaceholder.typicode.com/',
   responseType: 'json',
   headers: {
     'Content-Type': 'application/json',

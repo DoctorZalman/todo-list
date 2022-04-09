@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { FC } from 'react';
 import { Provider } from 'react-redux';
 import store from './redux';
 import { Box } from '@mui/material';
@@ -7,7 +7,7 @@ import Todos from './pages/Todos/Todos';
 import Layout from './pages/Layout/Layout';
 import Photos from './pages/Photos/Photos';
 
-const App = () => {
+const App: FC = () => {
   return (
     <Provider store={store}>
       <Box>
