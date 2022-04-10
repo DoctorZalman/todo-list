@@ -9,7 +9,7 @@ const instance: AxiosInstance = axios.create({
   },
 });
 
-const get = <R>(url: string, data?: any, config?: AxiosRequestConfig): Promise<R> =>
+const get = <R>(url: string, config?: AxiosRequestConfig): Promise<R> =>
   instance.get(url, config).then((response) => response as unknown as R);
 
 export { get };

@@ -3,3 +3,7 @@ export interface ITodo {
   id: number;
   isDone: boolean;
 }
+
+export interface IWorkerProps {
+  payload: number;
+}

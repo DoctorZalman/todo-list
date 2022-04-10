@@ -14,6 +14,7 @@ export const useStyles = makeStyles({
   addTodoInput: {
     fontSize: 16,
     width: 500,
+    marginRight: 20,
   },
   filterButton: {
     width: 60,
