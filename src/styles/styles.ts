@@ -1,5 +1,4 @@
 import { makeStyles } from '@mui/styles';
-// Layout Page
 export const useStyles = makeStyles({
   wrapper: {
     width: 1080,

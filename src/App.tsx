@@ -6,6 +6,7 @@ import { Routes, Route } from 'react-router-dom';
 import Todos from './pages/Todos/Todos';
 import Layout from './pages/Layout/Layout';
 import Photos from './pages/Photos/Photos';
+import SingleTodo from './pages/SingleTodo';
 
 const App: FC = () => {
   return (
@@ -15,7 +16,7 @@ const App: FC = () => {
           <Route path="/" element={<Layout />}>
             <Route path="/todos" element={<Todos />} />
             <Route path="/photos" element={<Photos />} />
-            {/*<Route path="/single:id" element={<SingleItem />} />*/}
+            <Route path="/todos/:id" element={<SingleTodo />} />
           </Route>
         </Routes>
       </Box>

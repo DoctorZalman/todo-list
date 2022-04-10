@@ -13,7 +13,18 @@ const Todos = () => {
 
   const list = filter === 'all' ? todoList : filteredList;
 
-  console.log(filteredList);
+  const onEditHandler = (id: number, value: string) => {
+    const todosEdited = todoList.reduce((acc: ITodo[], el: ITodo) => {
+      if (el.id === id) {
+        return [...acc, { ...el, valueTodo: value }];
+      }
+
+      return [...acc, el];
+    }, []);
+
+    // setEditModeHandler(false);
+    setTodoList(todosEdited);
+  };
 
   useEffect(() => {
     if (filter === 'done') {
@@ -26,7 +37,7 @@ const Todos = () => {
   useEffect(() => {
     const todo: any = JSON.parse(localStorage.getItem('todo') as string);
 
-    if (todo.length) {
+    if (todo.length > 0) {
       setTodoList(todo);
     }
   }, []);
@@ -98,7 +109,14 @@ const Todos = () => {
         </ToggleButtonGroup>
       </Box>
       {list.map((todo: ITodo) => (
-        <TodoListItem todo={todo} key={todo.id} onChange={onCheckBoxHandle} onDelete={deleteTodoHandle} />
+        <TodoListItem
+          todo={todo}
+          key={todo.id}
+          onChange={onCheckBoxHandle}
+          onDelete={deleteTodoHandle}
+          onEdit={onEditHandler}
+          // setEditMode={setEditModeHandler}
+        />
       ))}
     </Box>
   );

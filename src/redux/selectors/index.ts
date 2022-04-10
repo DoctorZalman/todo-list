@@ -1,5 +1,1 @@
-const selectors = {
-  appSelector: (state: any) => state.app,
-};
-
-export default selectors;
+export const albumSelector = ({ albums }: any) => albums;
