@@ -1,8 +1,11 @@
-import React, { useEffect, useState } from 'react';
+import React, { FC, ReactElement, useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
 import { ITodo } from '../../interfaces/interface';
+import { Box, Typography } from '@mui/material';
+import { useStyles } from './style';
 
-const SingleTodo = () => {
+const SingleTodo: FC = (): ReactElement => {
+  const classes = useStyles();
   const { id } = useParams();
   const [todo, setTodo] = useState<ITodo | null>(null);
 
@@ -16,7 +19,13 @@ const SingleTodo = () => {
     }
   }, []);
 
-  return <div>{todo?.valueTodo}</div>;
+  return (
+    <Box className={classes.singleContainer}>
+      <Box className={classes.singleItem}>
+        <Typography>{todo?.valueTodo}</Typography>
+      </Box>
+    </Box>
+  );
 };
 
 export default SingleTodo;

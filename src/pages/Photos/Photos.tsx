@@ -1,4 +1,4 @@
-import React, { ChangeEvent, useState } from 'react';
+import React, { ChangeEvent, FC, ReactElement, useState } from 'react';
 import { useStyles } from './styles';
 import { Box, Button, CircularProgress, ImageList, ImageListItem, TextField } from '@mui/material';
 import { shallowEqual, useDispatch, useSelector } from 'react-redux';
@@ -6,13 +6,13 @@ import { getAlbums } from '../../redux/albums/actionCreators';
 import { albumSelector } from '../../redux/selectors';
 import { IAlbum } from '../../interfaces/album';
 
-const Photos = () => {
+const Photos: FC = (): ReactElement => {
   const classes = useStyles();
   const [getId, setGetId] = useState<string | number>('');
   const { albums, isLoading } = useSelector(albumSelector, shallowEqual);
   const dispatch = useDispatch();
   const handleEnterValue = (event: ChangeEvent<HTMLInputElement>): void => {
-    const value = +event.target.value;
+    const value: number = +event.target.value;
 
     if (value >= 1 && value <= 100) {
       setGetId(value);
@@ -36,9 +36,11 @@ const Photos = () => {
           GET PHOTOS
         </Button>
       </Box>
-      <Box className={classes.imageColection}>
+      <Box className={classes.imageCollection}>
         {isLoading ? (
-          <CircularProgress />
+          <Box className={classes.progressContainer}>
+            <CircularProgress />
+          </Box>
         ) : (
           <ImageList cols={4}>
             {albums.map(({ id, url, title }: IAlbum) => (

@@ -22,8 +22,10 @@ export const useStyles = makeStyles({
       alignItems: 'center',
       textDecoration: 'none',
       color: 'black',
+      opacity: '0.7',
       '&:active': {
         color: 'black',
+        opacity: 1,
       },
     },
   },
