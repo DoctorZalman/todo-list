@@ -1,17 +1,15 @@
-import React, { ChangeEvent, useState, MouseEvent, useEffect } from 'react';
+import React, { ChangeEvent, useState, MouseEvent, useEffect, Fragment, FC, ReactElement, KeyboardEvent } from 'react';
 import { Box, TextField, ToggleButton, ToggleButtonGroup } from '@mui/material';
 import { useStyles } from './styles';
 import TodoListItem from '../../components/TodoListItem/TodoListItem';
-import { ITodo } from '../../interfaces/interface';
+import { ITodo, StatusFilter } from '../../interfaces/interface';
 
-const Todos = () => {
+const Todos: FC = (): ReactElement => {
+  const { ALL, TODO, DONE } = StatusFilter;
   const classes = useStyles();
   const [value, setValue] = useState<string>('');
   const [todoList, setTodoList] = useState<ITodo[]>([]);
-  const [filter, setFilter] = useState<string>('all');
-  const [filteredList, setFilteredList] = useState<ITodo[]>(todoList);
-
-  const list = filter === 'all' ? todoList : filteredList;
+  const [filter, setFilter] = useState<string>(ALL);
 
   const onEditHandler = (id: number, value: string) => {
     const todosEdited = todoList.reduce((acc: ITodo[], el: ITodo) => {
@@ -22,22 +20,13 @@ const Todos = () => {
       return [...acc, el];
     }, []);
 
-    // setEditModeHandler(false);
     setTodoList(todosEdited);
   };
 
   useEffect(() => {
-    if (filter === 'done') {
-      const filtered = todoList.filter((el) => el.isDone);
-
-      setFilteredList(filtered);
-    }
-  }, [filter]);
-
-  useEffect(() => {
     const todo: any = JSON.parse(localStorage.getItem('todo') as string);
 
-    if (todo.length > 0) {
+    if (todo?.length) {
       setTodoList(todo);
     }
   }, []);
@@ -59,7 +48,7 @@ const Todos = () => {
       const newTodo = {
         valueTodo: value,
         id: Date.now(),
-        isDone: false,
+        status: TODO,
       };
 
       setTodoList([...todoList, newTodo]);
@@ -68,13 +57,13 @@ const Todos = () => {
   };
 
   const onCheckBoxHandle = (id: number): void => {
-    const todoId = todoList.findIndex((el) => el.id === id);
-    const getId = todoList.splice(todoId, 1);
+    const todoIndex = todoList.findIndex((el) => el.id === id);
+    const todoItem = todoList.splice(todoIndex, 1);
 
-    if (getId[0]?.isDone) {
-      setTodoList([{ ...getId[0], isDone: false }, ...todoList]);
+    if (todoItem[0]?.status === TODO) {
+      setTodoList([...todoList, { ...todoItem[0], status: DONE }]);
     } else {
-      setTodoList([...todoList, { ...getId[0], isDone: true }]);
+      setTodoList([{ ...todoItem[0], status: TODO }, ...todoList]);
     }
   };
 
@@ -86,6 +75,15 @@ const Todos = () => {
     setTodoList(deleteTodo);
   };
 
+  const renderTodoItem = (todo: ITodo): ReactElement => (
+    <TodoListItem todo={todo} onChange={onCheckBoxHandle} onDelete={deleteTodoHandle} onEdit={onEditHandler} />
+  );
+  const onEnterPressHandler = (e: KeyboardEvent<HTMLInputElement>) => {
+    if (e.key === 'Enter') {
+      addTodo();
+    }
+  };
+
   return (
     <Box className={classes.todoContainer}>
       <Box className={classes.addTodo}>
@@ -94,29 +92,21 @@ const Todos = () => {
           className={classes.addTodoInput}
           label="Add Todo"
           onChange={handleChangeValue}
-          onKeyPress={(e) => {
-            if (e.key === 'Enter') {
-              addTodo();
-            }
-          }}
+          onKeyPress={onEnterPressHandler}
         />
         <ToggleButtonGroup color="primary" value={filter} exclusive onChange={handleChangeFilter}>
-          <ToggleButton className={classes.filterButton} value="all">
+          <ToggleButton className={classes.filterButton} value={ALL}>
             All
           </ToggleButton>
-          <ToggleButton value="todo">Todo</ToggleButton>
-          <ToggleButton value="done">Done</ToggleButton>
+          <ToggleButton value={TODO}>Todo</ToggleButton>
+          <ToggleButton value={DONE}>Done</ToggleButton>
         </ToggleButtonGroup>
       </Box>
-      {list.map((todo: ITodo) => (
-        <TodoListItem
-          todo={todo}
-          key={todo.id}
-          onChange={onCheckBoxHandle}
-          onDelete={deleteTodoHandle}
-          onEdit={onEditHandler}
-          // setEditMode={setEditModeHandler}
-        />
+      {todoList.map((todo: ITodo) => (
+        <Fragment key={todo.id}>
+          {todo.status === filter && renderTodoItem(todo)}
+          {ALL === filter && renderTodoItem(todo)}
+        </Fragment>
       ))}
     </Box>
   );

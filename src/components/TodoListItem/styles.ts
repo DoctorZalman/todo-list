@@ -14,11 +14,22 @@ export const useStyles = makeStyles({
     '& a': {
       color: 'black',
       textDecoration: 'none',
-      opacity: '0.75',
+      opacity: '0.7',
     },
   },
   itemDone: {
     textDecoration: 'line-through',
     opacity: '0.5',
+  },
+  todoActiveField: {
+    maxWidth: 400,
+    width: '100%',
+    '& input': {
+      paddingLeft: 0,
+    },
+  },
+  controlWrapper: {
+    display: 'flex',
+    justifyContent: 'flex-end',
   },
 });

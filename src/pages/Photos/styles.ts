@@ -9,11 +9,16 @@ export const useStyles = makeStyles({
   },
   getImage: {
     marginLeft: 24,
+    opacity: '0.7',
   },
-  imageColection: {
+  imageCollection: {
     padding: '0px 40px 40px',
   },
   img: {
     borderRadius: 30,
+  },
+  progressContainer: {
+    display: 'flex',
+    justifyContent: 'center',
   },
 });
