@@ -4,7 +4,7 @@ Typification: TypeScript
 Desing: MUI
 
 ## The application has two tabs: Todo and Photos.
-- The todo tab is a list of tasks. The todo tab is a list of tasks. To get started, you need to enter data in the "Add todo" input.
+- The todo tab is a list of tasks. The todo tab is a list of tasks. To get started, you need to enter data in the "Add todo" input. "Local storage" is used to store data between active sessions
 
 ### Todo. List items can be:
 - add
