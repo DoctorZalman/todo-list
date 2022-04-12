@@ -3,7 +3,7 @@ Library: React JS (Redux, Router, Saga);
 Typification: TypeScript;
 Desing: MUI;
 
-##Todo. List items can be:
+## Todo. List items can be:
 - add
 - delete
 - change status: "done" / "not done"
