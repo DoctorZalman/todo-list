@@ -6,7 +6,7 @@ Desing: MUI
 ## The application has two tabs: Todo and Photos.
 
 ### Todo. 
-- The todo tab is a list of tasks. To get started, you need to enter data in the "Add todo" input. "Local storage" is used to store data between active sessions
+- The todo tab is a list of tasks. To get started, you need to enter data in the "Add todo" input. "Local storage" is used to store data between active sessions.
 List items can be:
 1. add
 2. delete
