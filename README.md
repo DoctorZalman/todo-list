@@ -1,6 +1,6 @@
 # todo-list app
 Library: React JS (Redux, Router, Saga)
-Typification: TypeScript
+Typification: TypeScript.
 Desing: MUI
 
 ## The application has two tabs: Todo and Photos.
